@@ -7,16 +7,16 @@ export default class Initial extends Component {
     constructor(props) {
         super(props);
         this.state = { viewRef: null };
-      }
+    }
     
-      imageLoaded() {
+    imageLoaded() {
         this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
-      }
-  componentDidMount() {
-      setTimeout(()=>{
-          this.props.navigation.navigate('Tab');
-      } ,3000) 
-  }  
+    }
+    componentDidMount() {
+        setTimeout(()=>{
+            this.props.navigation.navigate('TabScreens');
+        } ,3000) 
+    }  
   render() {
     return (
       <View style={styles.container}>
