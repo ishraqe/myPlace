@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {RootNavigation} from './Navigation';
+import React, { Component } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { RootNavigation } from "./Navigation";
 
-export default class App extends Component{
+export default class App extends Component {
   render() {
+    const Layout = RootNavigation();
     return (
       <View style={styles.container}>
-        <RootNavigation />
+        <Layout />
       </View>
     );
   }
@@ -15,6 +16,6 @@ export default class App extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF"
   }
 });
