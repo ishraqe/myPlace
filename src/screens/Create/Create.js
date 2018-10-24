@@ -149,6 +149,7 @@ export default class CeateIssue extends Component {
           <Modal isVisible={this.state.isModalVisible}>
             <View style={styles.modalStyle}>
               <Text>Hello!</Text>
+
               <TouchableOpacity onPress={this._toggleModal}>
                 <Text>Hide me!</Text>
               </TouchableOpacity>
