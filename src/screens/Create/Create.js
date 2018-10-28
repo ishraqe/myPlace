@@ -6,8 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView,
-  CheckBox
+  Switch
 } from "react-native";
 import CircleCheckBox, { LABEL_POSITION } from "react-native-circle-checkbox";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -137,80 +136,82 @@ export default class CeateIssue extends Component {
   };
   render() {
     return (
-      <KeyboardAwareScrollView style={{ flex: 1 }}>
-        <View style={styles.container}>
-          <View style={styles.uploadContainer}>{this.renderImageUpload()}</View>
-          <View style={styles.inputContainer}>
-            <TouchableOpacity
-              style={styles.Input}
-              onPress={() => this._toggleModal()}
-            >
-              <Icon name="ios-add" size={35} style={styles.InputIcon} />
-              <Text style={styles.text}>Choose Category</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.Input}>
-              <Icon name="ios-pin" size={35} style={styles.InputIcon} />
-              <Text style={styles.text}>Add Location</Text>
-            </TouchableOpacity>
-            <View style={styles.Input}>
-              <TextInput
-                style={[styles.text, styles.title]}
-                value={this.state.title}
-                placeholder="Title"
-                onChangeText={text => this.setState({ title: text })}
-              />
+      <View style={styles.container}>
+        <View style={styles.uploadContainer}>{this.renderImageUpload()}</View>
+        <View style={styles.inputContainer}>
+          <TouchableOpacity
+            style={styles.Input}
+            onPress={() => this._toggleModal()}
+          >
+            <Icon name="ios-add" size={35} style={styles.InputIcon} />
+            <Text style={styles.text}>Choose Category</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.Input}>
+            <Icon name="ios-pin" size={30} style={styles.InputIcon} />
+            <Text style={styles.text}>Add Location</Text>
+          </TouchableOpacity>
+          <View style={styles.switchContainer}>
+            <View style={styles.switchText}>
+              <Icon name="ios-clock" size={25} style={styles.InputIcon} />
+              <Text style={styles.text}>Set Reminder</Text>
             </View>
-            <View style={[styles.Input, styles.descInput]}>
-              <TextInput
-                multiline={true}
-                style={[styles.text, styles.description]}
-                value={this.state.description}
-                placeholder="Description (Optional)"
-                onChangeText={text => this.setState({ description: text })}
-              />
+            <Switch />
+          </View>
+          <View style={styles.Input}>
+            <TextInput
+              style={[styles.text, styles.title]}
+              value={this.state.title}
+              placeholder="Title"
+              onChangeText={text => this.setState({ title: text })}
+            />
+          </View>
+          <View style={[styles.Input, styles.descInput]}>
+            <TextInput
+              multiline={true}
+              style={[styles.text, styles.description]}
+              value={this.state.description}
+              placeholder="Description (Optional)"
+              onChangeText={text => this.setState({ description: text })}
+            />
+          </View>
+        </View>
+        <TouchableOpacity style={styles.createButton}>
+          <Text style={[styles.text, styles.createText]}>Create</Text>
+        </TouchableOpacity>
+        <Modal isVisible={this.state.isModalVisible}>
+          <View style={styles.modalStyle}>
+            {_.map(this.state.categories, (category, index) => {
+              return (
+                <CircleCheckBox
+                  key={index}
+                  checked={_.includes(this.state.selecetdCategories, category)}
+                  onToggle={() => this._selectCategories(category)}
+                  labelPosition={LABEL_POSITION.RIGHT}
+                  label={category.name}
+                  outerColor={themeColor}
+                  innerColor={themeColor}
+                  styleLabel={styles.chckboxLabel}
+                  styleCheckboxContainer={styles.eachCheckBox}
+                />
+              );
+            })}
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancleButton]}
+                onPress={this._toggleModal}
+              >
+                <Text style={styles.modalButtonText}>Cancle</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={this._toggleModal}
+              >
+                <Text style={styles.modalButtonText}>Save</Text>
+              </TouchableOpacity>
             </View>
           </View>
-          <TouchableOpacity style={styles.createButton}>
-            <Text style={[styles.text, styles.createText]}>Create</Text>
-          </TouchableOpacity>
-          <Modal isVisible={this.state.isModalVisible}>
-            <View style={styles.modalStyle}>
-              {_.map(this.state.categories, (category, index) => {
-                return (
-                  <CircleCheckBox
-                    key={index}
-                    checked={_.includes(
-                      this.state.selecetdCategories,
-                      category
-                    )}
-                    onToggle={() => this._selectCategories(category)}
-                    labelPosition={LABEL_POSITION.RIGHT}
-                    label={category.name}
-                    outerColor={themeColor}
-                    innerColor={themeColor}
-                    styleLabel={styles.chckboxLabel}
-                    styleCheckboxContainer={styles.eachCheckBox}
-                  />
-                );
-              })}
-              <View style={styles.modalButtons}>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.cancleButton]}
-                  onPress={this._toggleModal}
-                >
-                  <Text style={styles.modalButtonText}>Cancle</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.modalButton, styles.saveButton]}
-                  onPress={this._toggleModal}
-                >
-                  <Text style={styles.modalButtonText}>Save</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
-        </View>
-      </KeyboardAwareScrollView>
+        </Modal>
+      </View>
     );
   }
 }

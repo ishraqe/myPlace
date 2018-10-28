@@ -85,14 +85,13 @@ const styles = StyleSheet.create({
     height: 50
   },
   createButton: {
-    position: "absolute",
-    bottom: 90,
     backgroundColor: primaryFontColor,
     width: WIDTH - 40,
     height: "10%",
     borderRadius: borderRadius,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: 10
   },
   createText: {
     color: "white",
@@ -137,6 +136,15 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     backgroundColor: "#5FBA7D"
+  },
+  switchContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  switchText: {
+    flexDirection: "row",
+    alignItems: "center"
   }
 });
 
