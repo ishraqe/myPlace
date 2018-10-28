@@ -134,7 +134,7 @@ export default class CeateIssue extends Component {
       console.log(updateCategory, "updated");
       this.setState({ selecetdCategories: updateCategory });
     }
-  };
+  };     
   render() {
     return (
       <KeyboardAwareScrollView style={{ flex: 1 }}>
