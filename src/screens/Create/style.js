@@ -5,7 +5,7 @@ import {
   appBackgroundColor,
   primaryFontColor,
   primaryFontSize,
-  borderRadius
+  borderRadius,
 } from "../../GlobalStyle";
 
 const styles = StyleSheet.create({
@@ -102,7 +102,16 @@ const styles = StyleSheet.create({
     height: "95%",
     width: WIDTH - 40,
     backgroundColor: "white",
-    borderRadius: borderRadius
+    borderRadius: borderRadius,
+    padding: 10
+  },
+  eachCheckBox: {
+    marginTop: 7,
+    marginBottom: 7
+  },
+  chckboxLabel: {
+    fontSize: primaryFontSize + 5,
+    color: primaryFontColor,
   }
 });
 

@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, { Component } from "react";
 import {
   TextInput,
@@ -5,16 +6,18 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  CheckBox
 } from "react-native";
+import CircleCheckBox, { LABEL_POSITION } from "react-native-circle-checkbox";
 import Icon from "react-native-vector-icons/Ionicons";
 import LinearGradient from "react-native-linear-gradient";
 import ImagePicker from "react-native-image-crop-picker";
-import Modal from "react-native-modal";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { navTitleStyle, primaryFontColor } from "../../GlobalStyle";
+import { navTitleStyle, primaryFontColor, themeColor } from "../../GlobalStyle";
 import styles from "./style";
+import Modal from "../../components/Modal";
 
 export default class CeateIssue extends Component {
   constructor(props) {
@@ -23,7 +26,16 @@ export default class CeateIssue extends Component {
       imageUrl: "",
       title: "",
       description: "",
-      isModalVisible: false
+      isModalVisible: false,
+      categories: [
+        { name: "Technical", value: 1 },
+        { name: "Kitchen", value: 2 },
+        { name: "Work Place", value: 3 },
+        { name: "Home", value: 4 },
+        { name: "School", value: 5 },
+        { name: "Other", value: 6 }
+      ],
+      selecetdCategories: []
     };
   }
   static navigationOptions = ({ navigation }) => {
@@ -107,7 +119,22 @@ export default class CeateIssue extends Component {
   };
   _toggleModal = () =>
     this.setState({ isModalVisible: !this.state.isModalVisible });
-
+  _selectCategories = category => {
+    if (!_.includes(this.state.selecetdCategories, category)) {
+      this.setState({
+        selecetdCategories: [...this.state.selecetdCategories, category]
+      });
+    }
+    if (_.includes(this.state.selecetdCategories, category)) {
+      const updateCategory = _.filter(this.state.selecetdCategories, function(
+        newObj
+      ) {
+        return newObj.name !== category.name;
+      });
+      console.log(updateCategory, "updated");
+      this.setState({ selecetdCategories: updateCategory });
+    }
+  };
   render() {
     return (
       <KeyboardAwareScrollView style={{ flex: 1 }}>
@@ -123,7 +150,7 @@ export default class CeateIssue extends Component {
             </TouchableOpacity>
             <TouchableOpacity style={styles.Input}>
               <Icon name="ios-pin" size={35} style={styles.InputIcon} />
-              <Text style={styles.text}>Choose Category</Text>
+              <Text style={styles.text}>Add Location</Text>
             </TouchableOpacity>
             <View style={styles.Input}>
               <TextInput
@@ -148,11 +175,24 @@ export default class CeateIssue extends Component {
           </TouchableOpacity>
           <Modal isVisible={this.state.isModalVisible}>
             <View style={styles.modalStyle}>
-              <Text>Hello!</Text>
-
-              <TouchableOpacity onPress={this._toggleModal}>
-                <Text>Hide me!</Text>
-              </TouchableOpacity>
+              {_.map(this.state.categories, (category, index) => {
+                return (
+                  <CircleCheckBox
+                    key={index}
+                    checked={_.includes(
+                      this.state.selecetdCategories,
+                      category
+                    )}
+                    onToggle={() => this._selectCategories(category)}
+                    labelPosition={LABEL_POSITION.RIGHT}
+                    label={category.name}
+                    outerColor={themeColor}
+                    innerColor={themeColor}
+                    styleLabel={styles.chckboxLabel}
+                    styleCheckboxContainer={styles.eachCheckBox}
+                  />
+                );
+              })}
             </View>
           </Modal>
         </View>

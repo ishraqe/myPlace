@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     },
     image: {
         height: 120,
-        width : 110
+        width : 120
     },
     title: {
         color: primaryFontColor,
