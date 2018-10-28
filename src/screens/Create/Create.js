@@ -134,7 +134,7 @@ export default class CeateIssue extends Component {
       console.log(updateCategory, "updated");
       this.setState({ selecetdCategories: updateCategory });
     }
-  };     
+  };
   render() {
     return (
       <KeyboardAwareScrollView style={{ flex: 1 }}>
@@ -193,6 +193,20 @@ export default class CeateIssue extends Component {
                   />
                 );
               })}
+              <View style={styles.modalButtons}>
+                <TouchableOpacity
+                  style={[styles.modalButton, styles.cancleButton]}
+                  onPress={this._toggleModal}
+                >
+                  <Text style={styles.modalButtonText}>Cancle</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.modalButton, styles.saveButton]}
+                  onPress={this._toggleModal}
+                >
+                  <Text style={styles.modalButtonText}>Save</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </Modal>
         </View>

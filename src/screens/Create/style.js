@@ -5,7 +5,7 @@ import {
   appBackgroundColor,
   primaryFontColor,
   primaryFontSize,
-  borderRadius,
+  borderRadius
 } from "../../GlobalStyle";
 
 const styles = StyleSheet.create({
@@ -111,7 +111,32 @@ const styles = StyleSheet.create({
   },
   chckboxLabel: {
     fontSize: primaryFontSize + 5,
-    color: primaryFontColor,
+    color: primaryFontColor
+  },
+  modalButtons: {
+    position: "absolute",
+    bottom: 10,
+    left: 10,
+    right: 10,
+    flexDirection: "row",
+    justifyContent: "space-around"
+  },
+  modalButton: {
+    padding: 10,
+    width: "40%",
+    backgroundColor: "red",
+    borderRadius: borderRadius,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  modalButtonText: {
+    color: "white"
+  },
+  cancleButton: {
+    backgroundColor: "red"
+  },
+  saveButton: {
+    backgroundColor: "#5FBA7D"
   }
 });
 
