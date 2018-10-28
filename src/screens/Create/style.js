@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#5FBA7D"
   },
   switchContainer: {
+    marginTop: 5,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
@@ -145,6 +146,10 @@ const styles = StyleSheet.create({
   switchText: {
     flexDirection: "row",
     alignItems: "center"
+  },
+  DatePickerStyle: {
+    borderBottomWidth: 0,
+    width: WIDTH / 2
   }
 });
 

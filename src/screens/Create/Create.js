@@ -1,22 +1,16 @@
 import _ from "lodash";
 import React, { Component } from "react";
-import {
-  TextInput,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Switch
-} from "react-native";
+import { TextInput, View, Text, TouchableOpacity, Image } from "react-native";
 import CircleCheckBox, { LABEL_POSITION } from "react-native-circle-checkbox";
 import Icon from "react-native-vector-icons/Ionicons";
 import LinearGradient from "react-native-linear-gradient";
 import ImagePicker from "react-native-image-crop-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
 import { navTitleStyle, primaryFontColor, themeColor } from "../../GlobalStyle";
 import styles from "./style";
 import Modal from "../../components/Modal";
+import Switch from "../../components/Switch";
+import DatePicker from "./DatePicker";
 
 export default class CeateIssue extends Component {
   constructor(props) {
@@ -34,7 +28,9 @@ export default class CeateIssue extends Component {
         { name: "School", value: 5 },
         { name: "Other", value: 6 }
       ],
-      selecetdCategories: []
+      selecetdCategories: [],
+      switchValue: false,
+      datetime: "2018-09-30 20:00"
     };
   }
   static navigationOptions = ({ navigation }) => {
@@ -134,6 +130,10 @@ export default class CeateIssue extends Component {
       this.setState({ selecetdCategories: updateCategory });
     }
   };
+  toggleSwitch = value => {
+    this.setState({ switchValue: value });
+    console.log("Switch 1 is: " + value);
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -153,9 +153,20 @@ export default class CeateIssue extends Component {
           <View style={styles.switchContainer}>
             <View style={styles.switchText}>
               <Icon name="ios-clock" size={25} style={styles.InputIcon} />
-              <Text style={styles.text}>Set Reminder</Text>
+              <DatePicker
+                isReminderTrue={this.state.switchValue}
+                Input={styles.Input}
+                text={styles.text}
+                switchText={styles.switchText}
+                InputIcon={styles.InputIcon}
+                datetime={this.state.datetime}
+                DatePickerStyle={styles.DatePickerStyle}
+              />
             </View>
-            <Switch />
+            <Switch
+              toggleSwitch={this.toggleSwitch}
+              switchValue={this.state.switchValue}
+            />
           </View>
           <View style={styles.Input}>
             <TextInput
