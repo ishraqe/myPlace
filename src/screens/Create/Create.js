@@ -6,6 +6,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import LinearGradient from "react-native-linear-gradient";
 import ImagePicker from "react-native-image-crop-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+
 import { navTitleStyle, primaryFontColor, themeColor } from "../../GlobalStyle";
 import styles from "./style";
 import Modal from "../../components/Modal";
@@ -20,6 +22,7 @@ export default class CeateIssue extends Component {
       title: "",
       description: "",
       isModalVisible: false,
+      palcesModal: false,
       categories: [
         { name: "Technical", value: 1 },
         { name: "Kitchen", value: 2 },
@@ -132,7 +135,6 @@ export default class CeateIssue extends Component {
   };
   toggleSwitch = value => {
     this.setState({ switchValue: value });
-    console.log("Switch 1 is: " + value);
   };
   render() {
     return (
@@ -146,7 +148,14 @@ export default class CeateIssue extends Component {
             <Icon name="ios-add" size={35} style={styles.InputIcon} />
             <Text style={styles.text}>Choose Category</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.Input}>
+          <TouchableOpacity
+            onPress={() =>
+              this.setState({
+                palcesModal: true
+              })
+            }
+            style={styles.Input}
+          >
             <Icon name="ios-pin" size={30} style={styles.InputIcon} />
             <Text style={styles.text}>Add Location</Text>
           </TouchableOpacity>
@@ -189,6 +198,45 @@ export default class CeateIssue extends Component {
         <TouchableOpacity style={styles.createButton}>
           <Text style={[styles.text, styles.createText]}>Create</Text>
         </TouchableOpacity>
+        <Modal isVisible={this.state.palcesModal}>
+          <View style={styles.modalStyle}>
+            <GooglePlacesAutocomplete
+              placeholder="Search"
+              minLength={2} // minimum length of text to search
+              autoFocus={true}
+              returnKeyType={"search"} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+              listViewDisplayed="auto" // true/false/undefined
+              fetchDetails={true}
+              renderDescription={row => row.description} // custom description render
+              onPress={(data, details = null) => {
+                // 'details' is provided when fetchDetails = true
+                console.log(data, details);
+              }}
+              getDefaultValue={() => ""}
+              query={{
+                // available options: https://developers.google.com/places/web-service/autocomplete
+                key: "AIzaSyD1-1TpolMdL-NjP54cRakj74QLsjLC-gQ",
+                language: "en", // language of the results
+                types: "(cities)" // default: 'geocode'
+              }}
+              styles={{
+                textInputContainer: {
+                  width: "100%",
+                  backgroundColor: themeColor
+                },
+                description: {
+                  fontWeight: "bold"
+                },
+                predefinedPlacesDescription: {
+                  color: "#1faadb"
+                }
+              }}
+              currentLocation={true}
+              nearbyPlacesAPI="GooglePlacesSearch"
+              debounce={200}
+            />
+          </View>
+        </Modal>
         <Modal isVisible={this.state.isModalVisible}>
           <View style={styles.modalStyle}>
             {_.map(this.state.categories, (category, index) => {

@@ -5,7 +5,8 @@ import {
   appBackgroundColor,
   primaryFontColor,
   primaryFontSize,
-  borderRadius
+  borderRadius,
+  themeColor
 } from "../../GlobalStyle";
 
 const styles = StyleSheet.create({
@@ -99,10 +100,12 @@ const styles = StyleSheet.create({
   },
   modalStyle: {
     height: "95%",
-    width: WIDTH - 40,
+    width: "90%",
     backgroundColor: "white",
     borderRadius: borderRadius,
-    padding: 10
+    padding: 10,
+    paddingLeft: 20,
+    alignItems: "flex-start"
   },
   eachCheckBox: {
     marginTop: 7,
