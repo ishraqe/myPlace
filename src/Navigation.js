@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   createStackNavigator,
-  createBottomTabNavigator
+  createBottomTabNavigator,
+  createMaterialTopTabNavigator
 } from "react-navigation";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { renderTabIcon } from "./util";
@@ -26,10 +27,44 @@ import Alert from "./screens/Tab/Alerts/alert";
 // Create Issue
 import CreateIssue from "./screens/Create/Create";
 
+// Issues
+import Allissues from "./screens/Tab/Issues/IssueTabs/AllIssue";
+import Archivedissues from "./screens/Tab/Issues/IssueTabs/Archived";
+import IssueDescription from "./screens/IssueDescription/issueDescription";
+
+const IssueTab = createMaterialTopTabNavigator(
+  {
+    AllIssue: {
+      screen: Allissues
+    },
+    Archived: {
+      screen: Archivedissues
+    }
+  },
+  {
+    order: ["AllIssue", "Archived"],
+    animationEnabled: true,
+    tabBarPosition: "top",
+    swipeEnabled: false,
+    initialRouteName: "AllIssue",
+    tabBarOptions: {
+      activeTintColor: themeColor,
+      inactiveTintColor: "gray",
+      indicatorStyle: {
+        backgroundColor: themeColor
+      },
+      style: {
+        borderTopWidth: 0,
+        backgroundColor: "#FAFAFA"
+      }
+    }
+  }
+);
+
 const tabNav = createBottomTabNavigator(
   {
     Issues: {
-      screen: Issues
+      screen: IssueTab
     },
     Idea: {
       screen: Idea
@@ -87,10 +122,13 @@ export const RootNavigation = () => {
       },
       CreateIssue: {
         screen: CreateIssue
+      },
+      IssueDescription: {
+        screen: IssueDescription
       }
     },
     {
-      initialRouteName: "TabScreens",
+      initialRouteName: "IssueDescription",
       navigationOptions: ({ navigation }) => {
         return {
           headerStyle: navigationStyles.headerStyle,

@@ -26,8 +26,29 @@ export const activeOpacity = 0.6;
 export const navTitleStyle = {
   fontSize: 18,
   color: this.appBackgroundColor,
-  fontFamily: this.fontFamily,
   fontWeight: "bold",
   textAlign: "center",
   width: "100%"
+};
+export const navBackButton = {
+  button: {
+    flexDirection: "row",
+    marginLeft: 10,
+    alignItems: "center"
+  },
+  icon: {
+    color: themeColor,
+    fontSize: primaryFontSize + 10,
+    marginRight: 5
+  },
+  buttonText: {
+    color: themeColor,
+    fontSize: primaryFontSize + 1
+  }
+};
+
+export const issueGradientColor = {
+  green: "#7FC335",
+  blur: "#2386FF",
+  red: "#FF6159"
 };
